@@ -1,0 +1,20 @@
+ #To look the particular ip address
+nslookup guvi.com
+
+#cpu and memory usage
+top
+free -h
+
+#To test connectivity between 2 nodes
+ping <other-node-ip>
+
+#with this check the port is open and its listening or the port is already taken by another application
+ss -tulnp | grep 9000
+
+#from another machine to check whether the application is reachable
+telnet <ip/domain><port> if we know port number
+Or
+nc -zv guvi.com 9000
+
+#on local machine to check whether the application is reachable
+curl localhost:9000
