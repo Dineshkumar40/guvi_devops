@@ -1,0 +1,6 @@
+mkdir filepermissiontask 
+cd filepermissiontask 
+touch demo.txt 
+chmod 764 demo.txt 
+ll 
+
