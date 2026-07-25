@@ -1,0 +1,7 @@
+1: give information
+2: welcome give user
+3: hello give
+4: welcome give
+5: welcome learning learning
+6: give example
+7: welcome learning data
