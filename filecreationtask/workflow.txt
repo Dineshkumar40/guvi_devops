@@ -1,0 +1,14 @@
+mkdir filecreationtask
+cd filecreationtask
+echo "This is my first file" > my_file.txt
+echo "This is another file content" > another_file.txt
+cat another_file.txt >> my_file.txt
+cat my_file.txt
+ll -a 
+touch file{1..20}.txt
+for i in {1..5}
+do
+    mv "file${i}.txt" "file${i}.yml" 
+done
+ls -t | head -5
+
