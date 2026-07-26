@@ -1,0 +1,7 @@
+#Sign in to the AWS console application has a IAM user 
+#In EC2 instance create an instance with windows AMI and with Newkeypair with Region name of min 30GB storage , because it's a windows machine.
+#create a new Security group 
+#allow RDP connection alone
+
+#FROM Remote machine
+# Open CMD → systeminfo 
