@@ -1,0 +1,28 @@
+Create VPC (vpctask) with CIDR of 10.0.0.0/18
+
+Create 2 subnets in our VPC:
+→ pub-tasksubnet 10.0.1.0/24 
+→ pvt-tasksubnet 10.0.2.0/24
+
+Create 2 route tables in our VPC:
+→ rt-taskpub and attack it to the pub-tasksubnet
+→ rt-taskpvt and attack it to the pvt-tasksubnet
+
+Create a IGW and attach it with VPC
+
+Create a Security Group with 
+→ SSH anywhere ipv4
+→ HTTP anywhere ipv4
+→ HTTPS anywhere ipv4
+
+Create a EC2 instance in our VPC and in the subnet of pub-tasksubnet 
+Now attach the SG
+In advanced user data write bash script
+#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "<h1>EC2 Instance is Running</h1>" > /var/www/html/index.html
+
+And spin up the EC2 with public ip enabled
