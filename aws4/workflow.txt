@@ -1,0 +1,21 @@
+Create 2 EC2 (Both linux and windows)
+Create 2 EBS in the same AZ of EC2
+For LINUX:
+Attach the linux EBS 
+For formatting:
+→ lsblk 
+→ sudo mkfs -t ext4 dev/xvdf
+→ Sudo mkdir /data
+→ sudo mount /dev/xvdf /data
+→ df -h
+→ take a snapshot of that EBS
+→ create EBS from the taken snapshot
+
+For WINDOWS:
+Attach the windows EBS
+Open Disk Management
+Make the new volume online
+Make it MDR and give new name and set everything
+Now the disk is formatted
+Now Snapshot this machine EBS too 
+From the snapshot create a another windows EBS
