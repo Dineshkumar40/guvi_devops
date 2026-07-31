@@ -72,6 +72,7 @@ services:
 → docker compose up -d
 → docker ps
 → curl localhost:8080 you can see the result where whole html document will return
+→ create SG with custom TCP port of 8080 and attach the sg to the instance
 → http://<aws-pub-ip>:8080
 
 
