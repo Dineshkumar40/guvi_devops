@@ -1,0 +1,19 @@
+→ create a directory for the project and cd into it
+→ Create a index.html with own content 
+→ now create a Dockerfile 
+→ make a directory so that we can attach that has docker volume
+    Sudo mkdir -p /var/opt/nginx
+→ then copy the index.html to this directory
+→ create a docker-compose file with volume
+→ Host volume : container volume  
+     vat/opt/nginx:usr/share/nginx/html
+→ and image name should be 
+    <dockeruser-name>/repo-name:Version
+    dineshkumar40/customngnix:v1
+→ docker compose build
+→ docker images
+→ docker compose up -d
+→ docker ps -a 
+→ docker login -u <docker-username>
+→ password : <docker-PTA>
+→ docker push <images-name>
