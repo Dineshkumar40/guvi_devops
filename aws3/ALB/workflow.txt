@@ -1,0 +1,12 @@
+Create 2 SG:
+--> one for ALB with HTTP and HTTPS
+--> another for EC2 with Custom TCP of source our ALB
+
+Create 2 EC2 instance with custom SG of source our ALB
+while spinning the EC2 install httpd using user data 
+
+Create Target Group and associate 2 EC2
+
+Create ALB with a HTTP listener and attach ALB SG 
+
+Now take the ALB DNS and search in chrome by http:// since we add only HTTP listener
