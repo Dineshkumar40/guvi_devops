@@ -1,0 +1,10 @@
+→ create a S3 bucket 
+→ create a cloud trail
+→ enable data events for S3 
+→ enable cloud watch and create a log group
+→ upload a file in S3 bucket
+→ wait for 5 min
+→ now go to cloud watch and search for our cloudwatch name
+→ click search all log stream
+→ search for our uploaded file name
+→ you will get an result where the 1st one would has eventName : PutObject
