@@ -1,0 +1,34 @@
+→ With already spined up jenkins EC2 instance starting it
+→ in jenkins manage install email plugin and github plugin
+→ in jenkins configuration system search for E-mail Notification  
+→ add SMTP server has smtp.gmail.com and Default user e-mail suffix  has @gmail.com
+→ expand the advance and click SMTP authentication add username(mailid) password (app password)
+→ check the Use TLS 
+→ SMTP port 587 
+→ reply address as your wish 
+→ enable test configuration and send test mail to the mailid
+→ once it is succeed then search for Extended E-mail notification
+→ configure the same for SMTP server and SMTP port there
+→ in advanced you will see the gamil SMTP which you setup before in SMTP server
+→ click Use TLS 
+→ create a multibranch pipeline so that it works for any branch
+→ there give display name and description according to you
+→ in Branch Source block add source of github so that it is useful for github webhooks (code check in trigger build)
+→ give github credentials with username and password options where password is PAT
+→ in build configuration Mode → by jenkinsfile and script Path → Jenkinsfile
+→ why the above is because in our code repo itself there should be jenkins file with the exact name of Jenkinsfile (no type) 
+→ now click Scan Repository Now
+→ now click Scan Repository log →  you can see main branch is detected	/checking branch main.
+→ in Status of multibranch pipeline Status you can see main 
+→ now create a pipeline with jenkins-dotnet-pipeline file
+→ in github repo navigate to settings which will be next to insights
+→ in settings go to webhooks and click Add webhook
+→ in paload URL add http://<public:ip>:8080/github-webhook/
+→ Content-type is application/json
+→Which events would you like to trigger this webhook?
+→just the push event
+→ Check the Active box
+→ click Add webhook
+→ now create a sample dotnet application and push that to the repo 
+→ your pipeline will be triggered and built and deployed and mail is sent on basis of success and failure.
+
