@@ -41,3 +41,18 @@ aws eks update-kubeconfig \
 --> LB DNS is exposed
 --> try http://<LB-DNS>
 
+=====================================
+DELETING:
+# 1. Delete EKS
+eksctl delete cluster \
+  --name nginx-cluster \
+  --region us-west-2
+
+# 2. Verify
+aws eks list-clusters --region us-west-2
+
+# 3. Check remaining CloudFormation stacks
+aws cloudformation list-stacks \
+  --region us-west-2 \
+  --stack-status-filter CREATE_COMPLETE UPDATE_COMPLETE
+
