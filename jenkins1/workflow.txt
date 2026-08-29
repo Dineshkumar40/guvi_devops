@@ -1,0 +1,35 @@
+→ spin up an EC2 instance
+→ install openjdk and jenkins
+→ enable the jenkins svc and start it 
+→ open 8080 port in SG for the instance since jenkins run on that 
+→ cat /var/lib/jenkins/secrets/initialAdminPassword and paste it in jenkins console
+→ click on install plugins 
+→ it will be redirected to admin console creation , create one admin
+→ you will be redirected to welcome to jenkins dashboard
+→ Create a job named my-first-pipeline
+→ Then select: Pipeline and click OK.
+→ You'll get a Pipeline configuration page.
+→ At the bottom, you'll see Pipeline → Definition.
+→ For your first test, choose: Pipeline script and put
+→ pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello from Jenkins!'
+            }
+        }
+
+        stage('System Info') {
+            steps {
+                sh 'whoami'
+                sh 'java -version'
+                sh 'uname -a'
+            }
+        }
+    }
+}
+→  click save and then click build
+→ click  #1 → console output
+
