@@ -1,0 +1,95 @@
+#!/bin/bash
+
+set -e
+
+echo "=========================================="
+echo " Installing eksctl"
+echo "=========================================="
+
+# Detect architecture
+ARCH=$(uname -m)
+
+case "$ARCH" in
+    x86_64)
+        PLATFORM="Linux_amd64"
+        ;;
+    aarch64)
+        PLATFORM="Linux_arm64"
+        ;;
+    *)
+        echo "Unsupported architecture: $ARCH"
+        exit 1
+        ;;
+esac
+
+echo "Detected platform: $PLATFORM"
+
+# Work in /tmp
+cd /tmp
+
+# Remove any old files
+rm -f eksctl
+rm -f "eksctl_${PLATFORM}.tar.gz"
+
+echo ""
+echo "Downloading eksctl..."
+
+curl -fL \
+  -o "eksctl_${PLATFORM}.tar.gz" \
+  "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_${PLATFORM}.tar.gz"
+
+echo ""
+echo "Checking downloaded archive..."
+
+file "eksctl_${PLATFORM}.tar.gz"
+
+echo ""
+echo "Extracting eksctl..."
+
+tar -xzf "eksctl_${PLATFORM}.tar.gz"
+
+echo ""
+echo "Checking extracted binary..."
+
+file /tmp/eksctl
+
+echo ""
+echo "Installing eksctl..."
+
+sudo install -m 0755 /tmp/eksctl /usr/local/bin/eksctl
+
+# Remove temporary files
+rm -f /tmp/eksctl
+rm -f "/tmp/eksctl_${PLATFORM}.tar.gz"
+
+# Clear shell command cache
+hash -r
+
+echo ""
+echo "=========================================="
+echo " eksctl Installation Completed"
+echo "=========================================="
+
+echo ""
+echo "eksctl location:"
+which eksctl
+
+echo ""
+echo "eksctl version:"
+eksctl version
+
+echo ""
+echo "=========================================="
+echo " Installation Successful"
+echo "=========================================="
+
+echo ""
+echo "Next step:"
+echo ""
+echo "    aws sts get-caller-identity"
+echo ""
+echo "Then create your EKS cluster."
+echo ""
+
+
+sudo chmod 755 /usr/local/bin/eksctl
