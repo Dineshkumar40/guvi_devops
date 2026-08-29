@@ -1,0 +1,10 @@
+→ spin up a EC2 machine
+→ install docker with script file so that minikube can use that has driver
+→ after docker installed do newgrp docker or logout and login the machine
+→ install minikube and kubectl using script file
+→ start minikube
+→ docker ps 
+→ you can see minikube running 
+→ kubectl get ns
+→ kubectl create ns dev
+→ kubectl get ns → now you can see dev namespace
