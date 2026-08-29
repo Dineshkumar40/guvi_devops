@@ -1,0 +1,107 @@
+pipeline {
+    agent {
+        label 'dotnet'
+    }
+
+    environment {
+        APP_NAME = 'MyDotNetApp'
+    }
+
+    options {
+        timeout(time: 30, unit: 'MINUTES')
+        disableConcurrentBuilds()
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Restore') {
+            steps {
+                sh 'dotnet restore'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'dotnet build --configuration Release --no-restore'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'dotnet test --configuration Release --no-build'
+            }
+        }
+
+        stage('Publish') {
+            steps {
+                sh '''
+                    dotnet publish \
+                        --configuration Release \
+                        --output publish
+                '''
+
+                archiveArtifacts(
+                    artifacts: 'publish/**',
+                    fingerprint: true
+                )
+            }
+        }
+
+        stage('Production Approval') {
+            when {
+                branch 'main'
+            }
+
+            steps {
+                input message: 'Deploy to Production?'
+            }
+        }
+
+        stage('Deploy Production') {
+            when {
+                branch 'main'
+            }
+
+            steps {
+                echo "Deploying ${APP_NAME} to Production..."
+            }
+        }
+    }
+
+    post {
+        success {
+            emailext(
+                subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+                    Application: ${env.APP_NAME}
+                    Build: ${env.BUILD_NUMBER}
+                    Status: SUCCESS
+                    URL: ${env.BUILD_URL}
+                """,
+                to: 'dineshappleoneplus@gmail.com'
+            )
+        }
+
+        failure {
+            emailext(
+                subject: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+                    Application: ${env.APP_NAME}
+                    Build: ${env.BUILD_NUMBER}
+                    Status: FAILED
+                    URL: ${env.BUILD_URL}
+                """,
+                to: 'dineshappleoneplus@gmail.com'
+            )
+        }
+
+        always {
+            cleanWs()
+        }
+    }
+}
