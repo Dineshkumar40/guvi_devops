@@ -1,0 +1,61 @@
+#!/bin/bash
+
+set -e
+
+echo "=========================================="
+echo " Installing Minikube"
+echo "=========================================="
+
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+rm -f minikube-linux-amd64
+
+echo ""
+echo "Minikube version:"
+minikube version
+
+
+echo ""
+echo "=========================================="
+echo " Installing kubectl"
+echo "=========================================="
+
+sudo apt-get update
+
+sudo apt-get install -y \
+  apt-transport-https \
+  ca-certificates \
+  curl \
+  gnupg
+
+sudo mkdir -p -m 755 /etc/apt/keyrings
+
+curl -fsSL \
+  https://pkgs.k8s.io/core:/stable:/v1.34/deb/Release.key | \
+  sudo gpg --dearmor \
+  -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.34/deb/ /' | \
+  sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
+
+sudo apt-get update
+
+sudo apt-get install -y kubectl
+
+echo ""
+echo "kubectl version:"
+kubectl version --client
+
+
+echo ""
+echo "=========================================="
+echo " Minikube + kubectl Installation Complete"
+echo "=========================================="
+
+echo ""
+echo "Next step:"
+echo ""
+echo "    ./03-start-minikube.sh"
+echo ""
