@@ -16,3 +16,28 @@ eksctl create cluster \
   --region us-west-2 \
   --nodes 2 \
   --node-type t3.medium
+
+TROUBLESHOOTING:
+--> everything was created but EC2 (worker node) doesn't
+--> since the t3.medium is not available for free tier i changed it to t3.small
+--> i created a node group alone and attached it to existing cluster
+eksctl create nodegroup \
+  --cluster nginx-cluster \
+  --name nginx-nodes \
+  --region us-west-2 \
+  --node-type t3.small \
+  --nodes 2 \
+  --nodes-min 2 \
+  --nodes-max 2
+
+aws eks update-kubeconfig \
+  --region us-west-2 \
+  --name nginx-cluster
+
+--> kubectl get nodes
+--> create a nginx-deployment.yaml and apply
+--> create nginx-service.yaml and apply
+--> kubectl get svc nginx-service
+--> LB DNS is exposed
+--> try http://<LB-DNS>
+
