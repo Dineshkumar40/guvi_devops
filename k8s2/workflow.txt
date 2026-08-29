@@ -1,0 +1,18 @@
+→ spin up a EC2 with t3.small and gp 30Gb
+→ install aws cli 
+→ install kubectl
+→ install eksctl
+→ create a role with : 
+AmazonEC2FullAccess
+AmazonEKSClusterPolicy
+AmazonEKSWorkerNodePolicy
+AmazonVPCFullAccess
+AWSCloudFormationFullAccess
+IAMFullAccess
+
+→ Now create a cluster with 2 nodes 
+eksctl create cluster \
+  --name nginx-cluster \
+  --region us-west-2 \
+  --nodes 2 \
+  --node-type t3.medium
