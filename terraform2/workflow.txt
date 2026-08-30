@@ -1,0 +1,12 @@
+--> spin up a EC2 to run TF commands
+--> attach a adminaccess role for that EC2
+---> install aws cli
+--> check with aws cts get-caller=identity
+--> create user-data.sh file to install ngnix
+--> create main.tf file
+--> alias tf=terraform
+--> tf init
+--> tf validate
+--> tf paln
+--> tf apply --auto-approve
+--> see the output values
