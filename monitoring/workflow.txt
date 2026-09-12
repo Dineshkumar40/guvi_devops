@@ -1,0 +1,23 @@
+→ spin up 3 EC2 instances
+→ one is for prometheus and grafana and another 2 is for node exporter
+→ open SG for 9090, 3000 in EC2 instance 1 
+→ open SG for 9100  in EC2 2 and 3
+→ in instance 1 install prometheus using prom_install.sh
+→ start the service of prometheus
+→ in another 2 instances install node exporter using node_exporter_install.sh
+→ start the service too
+→ now in 1st EC2 open the /etc/prometheus/prometheus.yml
+→ in scrape_configs add new job “node_exporter” with 2 private ip’s of 2nd and 3rd EC2 
+→ then validate by promtool check config /etc/prometheus/prometheus.yml
+→ it returns SUCCESS: /etc/prometheus/prometheus.yml is valid prometheus config file syntax
+→ sudo systemctl restart prometheus
+→ sudo systemctl status prometheus
+→ now check the targets
+→ http://YOUR-PROMETHEUS-EC2-PUBLIC-IP:9090/targets
+→ now install grafana in EC2 1 with grafana_install.sh
+→ enter the url http://<EC2-1-PUBLIC-IP>:3000 for grafana
+→ LogIn to grafana dashboard
+→ Connections → Data sources → Add new data source → Prometheus 
+→ enter prometheus URL http://localhost:9090 (since prom is in the same server where grafana also in)
+→ Then click Save & test
+→ go to Explore and run up
