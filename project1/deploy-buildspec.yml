@@ -1,0 +1,30 @@
+version: 0.2
+
+phases:
+
+  install:
+    commands:
+      - echo Installing kubectl...
+      - curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+      - install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+      - kubectl version --client
+
+  pre_build:
+    commands:
+      - echo Updating kubeconfig...
+      - aws eks update-kubeconfig --region $AWS_DEFAULT_REGION --name $EKS_CLUSTER_NAME
+      - kubectl get nodes
+
+  build:
+    commands:
+      - echo Deploying application...
+      - sed -i "s|YOUR_ACCOUNT_ID|$AWS_ACCOUNT_ID|g" k8s/deployment.yaml
+      - kubectl apply -f k8s/deployment.yaml
+      - kubectl apply -f k8s/service.yaml
+      - kubectl rollout status deployment/brain-tasks-app
+
+  post_build:
+    commands:
+      - echo Deployment completed.
+      - kubectl get pods
+      - kubectl get service brain-tasks-service
